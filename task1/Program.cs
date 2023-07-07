@@ -24,7 +24,8 @@ int [,] Creat2DArray (int rows, int columns, int minValue, int maxValue)
 }
 
 void Show2DArray ( int [,] array)
-{
+{   
+    Console.WriteLine();
     for (int i = 0; i < array.GetLength(0); i++)
     {    
         for (int j = 0; j < array.GetLength(1); j++)
@@ -37,23 +38,28 @@ void Show2DArray ( int [,] array)
     Console.WriteLine();
 }
 
-int SortDescendingRow2DArray (int [,] array)
+int [,] SortDescendingRow2DArray (int [,] array)
 {
-    int[,] tempArr = new int[array.GetLength(0),array.GetLength(1)];
     for (int i = 0; i < array.GetLength(0); i++)
-    {   
+    {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            if (array[i,j+1] > array[i,j])
+            for (int k = 0; k < array.GetLength(1) - 1; k++)
             {
-                tempArr[i,j] = array[i,j+1];
+                if (array[i, k] < array[i, k + 1])
+                {
+                    int temp = array[i, k + 1];
+                    array[i, k + 1] = array[i, k];
+                    array[i, k] = temp;
+                }
             }
         }
     }
-    return tempArr;
+    return array;
 }
 
 int [,] currentArray = Creat2DArray (5, 5, 0, 10);
 Show2DArray (currentArray);
-SortDescendingRow2DArray (currentArray);
+
+int [,] newArray = SortDescendingRow2DArray (currentArray);
 Show2DArray (currentArray);
