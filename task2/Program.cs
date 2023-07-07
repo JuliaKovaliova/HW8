@@ -1,4 +1,4 @@
-﻿// Задайте прямоугольный двумерный массив.
+// Задайте прямоугольный двумерный массив.
 // Напишите программу, которая будет находить строку с
 // наименьшей суммой элементов.
 
@@ -28,19 +28,32 @@ void Show2DArray ( int [,] array)
     Console.WriteLine();
 }
 
-void SumRowArray (int [,] arr)
+int SumRow2dArray (int[,] array, int i)
 {
-    for (int i = 0; i < arr.GetLength(1); i++)
-        {
-            int sum = 0;
-            for (int j = 0; j < arr.GetLength(0); j++)
-            {
-                sum = sum + arr [i,j];
-            }
-            Console.WriteLine($"{sum}");
-        }
+    int sum = array[i,0];
+    for (int j = 1; j < array.GetLength(1); j++)
+    {
+        sum += array[i,j];
+    }
+    return sum;
 }
 
-int [,] currentArray = Creat2DArray (5, 5, 0, 10);
-Show2DArray (currentArray);
-SumRowArray (currentArray);
+int [,] currentArray = Creat2DArray(5,5,0,10);
+Show2DArray(currentArray);
+
+
+int rowMinSum = 1;
+int sum = SumRow2dArray(currentArray, 0);
+for (int i = 1; i < currentArray.GetLength(0); i++)
+{
+    if (sum > SumRow2dArray(currentArray, i))
+    {
+        sum = SumRow2dArray(currentArray, i);
+        rowMinSum = i+1;
+    }
+}
+Console.WriteLine($"The row with the smallest sum of elements: {rowMinSum}");
+
+
+
+
